@@ -1,0 +1,20 @@
+name = "your-store"
+main = "src/index.mjs"
+compatibility_date = "2026-09-01"
+
+[vars]
+# PUBLIC_URL = "https://your-domain.example"   # optional; defaults to the URL the Worker is called on
+FEEDBACK_PER_HOUR = "30"
+
+# Secrets (never in this file):
+#   wrangler secret put SERVICE_PATH      # required: long random string guarding the paid route
+#   wrangler secret put GITHUB_TOKEN      # recommended: a fine-grained token with no scopes; without it GitHub rate-limits Workers quickly
+#   wrangler secret put RESEND_API_KEY    # optional, to email feedback
+#   wrangler secret put FEEDBACK_TO       # optional
+#   wrangler secret put FEEDBACK_FROM     # optional
+
+# The feedback item needs a KV namespace (or the Resend secrets above):
+#   npx wrangler kv namespace create FEEDBACK   then uncomment and paste the id
+# [[kv_namespaces]]
+# binding = "FEEDBACK"
+# id = "<your KV namespace id>"

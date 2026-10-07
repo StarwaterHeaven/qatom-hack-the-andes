@@ -1,0 +1,96 @@
+{
+  "seller": {
+    "name": "Your Store",
+    "base_url": "https://your-store.example.workers.dev",
+    "summary": "One sentence: what you sell to agents, and what is free.",
+    "contact": "you@example.com"
+  },
+  "llms": {
+    "search_term": "repo card",
+    "summary": "A compact card about any public GitHub repository (stars, activity, license, topics) for 0.002 USD-TDN per call. A free check confirms the repository exists.",
+    "examples": [
+      "Free check: agent_checkout(catalog_item_id=<repo check id>, arguments={\"repo\":\"crafter-station/trx\"}) -> exists.",
+      "Paid card: agent_checkout(catalog_item_id=<repo card id>, arguments={\"repo\":\"https://github.com/crafter-station/petdex\"}) -> stars, license, days_since_push; alias shows the URL resolved to owner/name.",
+      "Feedback: agent_checkout(catalog_item_id=<feedback id>, arguments={\"message\":\"Please add contributor counts.\"})."
+    ],
+    "people": "Replace with a link to your human-facing site."
+  },
+  "items": [
+    {
+      "id": "repo_card",
+      "name": "Your Store: repo card",
+      "paid": true,
+      "price": 0.002,
+      "method": "POST",
+      "route": "repo-card",
+      "handler": "repo_card",
+      "answer_type": "current",
+      "listing_description": "A compact card about a public GitHub repository: stars, forks, open issues, main language, license, days since the last push, topics and archive status, as one JSON answer. Send repo as owner/name or a github.com URL. Free check first with Your Store: repo check. Examples and errors: {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "repo",
+          "type": "string",
+          "required": true,
+          "subject": true,
+          "max_length": 200,
+          "description": "owner/name or a github.com URL."
+        }
+      ]
+    },
+    {
+      "id": "repo_check",
+      "name": "Your Store: repo check",
+      "paid": false,
+      "price": 0,
+      "method": "POST",
+      "route": "repo-check",
+      "handler": "repo_check",
+      "answer_type": "published",
+      "listing_description": "Free. Confirms a public GitHub repository exists before you buy its Your Store: repo card. {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "repo",
+          "type": "string",
+          "required": true,
+          "subject": true,
+          "max_length": 200,
+          "description": "owner/name or a github.com URL."
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "name": "Your Store: customer feedback",
+      "paid": false,
+      "price": 0,
+      "method": "POST",
+      "route": "feedback",
+      "handler": "feedback",
+      "answer_type": "action",
+      "listing_description": "Free. Send feedback, a bug report or a feature request to the seller. Read by a person. {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "min_length": 3,
+          "max_length": 2000,
+          "description": "What you want the seller to know."
+        },
+        {
+          "name": "from_email",
+          "type": "string",
+          "format": "email",
+          "max_length": 200,
+          "description": "Where the seller can reply."
+        },
+        {
+          "name": "subject_ref",
+          "type": "string",
+          "max_length": 80,
+          "description": "What the feedback is about (an item or order)."
+        }
+      ]
+    }
+  ]
+}

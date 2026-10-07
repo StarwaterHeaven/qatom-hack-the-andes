@@ -1,0 +1,107 @@
+{
+  "seller": {
+    "name": "Trip Status demo for Chofex",
+    "base_url": "https://trip-status-demo.example.workers.dev",
+    "summary": "A demo of Mexican freight track-and-trace sold to AI agents per call. Synthetic trips on real corridors; no real carrier data.",
+    "disclaimer": "Demo data for Hack the Andes. Trips, carriers and drivers are synthetic."
+  },
+  "llms": {
+    "search_term": "trip status",
+    "summary": "Where is my load? Live position, status, ETA, the driver's last WhatsApp update and data-quality flags for a shipment reference, as one machine-readable answer, 0.010 USD-TDN per call. A free check confirms a reference exists. Demo with synthetic trips CHX-1001 to CHX-1005 on real Mexican corridors.",
+    "examples": [
+      "Free check: agent_checkout(catalog_item_id=<trip check id>, arguments={\"trip_ref\":\"CHX-1002\"}) -> exists, origin, destination, carrier.",
+      "Paid status, Spanish summary: agent_checkout(catalog_item_id=<trip status id>, arguments={\"trip_ref\":\"CHX-1002\"}) -> position, status, eta {at, delay_min, confidence}, last_driver_update, data_quality, summary.",
+      "Paid status, English summary: arguments={\"trip_ref\":\"1004\",\"lang\":\"en\"} -> the alias block shows 1004 resolved to CHX-1004; flags gps_stale and driver_unresponsive.",
+      "Feedback: agent_checkout(catalog_item_id=<feedback id>, arguments={\"message\":\"We need the ETA as a window, not a time.\"})."
+    ],
+    "people": "This is a demo for the Hack the Andes hackathon (Lima, 17-18 Oct 2026). Chofex's real product is an AI track-and-trace employee in carriers' WhatsApp groups: https://www.chofex.com"
+  },
+  "items": [
+    {
+      "id": "trip_status",
+      "name": "Chofex demo: trip status",
+      "paid": true,
+      "price": 0.01,
+      "method": "POST",
+      "route": "trip-status",
+      "handler": "trip_status",
+      "answer_type": "current",
+      "listing_description": "Live status of a Mexican freight shipment: position, status, ETA with delay and confidence, the driver's last WhatsApp update and data-quality flags, as one JSON answer. Send trip_ref; optional lang es or en for the summary. Free check first with Chofex demo: trip check. Demo data, synthetic trips. References, examples and errors: {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "trip_ref",
+          "type": "string",
+          "required": true,
+          "subject": true,
+          "max_length": 20,
+          "description": "Shipment reference as listed in llms.txt; short forms accepted."
+        },
+        {
+          "name": "lang",
+          "type": "string",
+          "enum": [
+            "es",
+            "en"
+          ],
+          "default": "es",
+          "description": "Language of the one-sentence summary."
+        }
+      ]
+    },
+    {
+      "id": "trip_check",
+      "name": "Chofex demo: trip check",
+      "paid": false,
+      "price": 0,
+      "method": "POST",
+      "route": "trip-check",
+      "handler": "trip_check",
+      "answer_type": "published",
+      "listing_description": "Free. Confirms a shipment reference exists and returns its origin, destination and carrier, so an agent knows the reference before buying Chofex demo: trip status. No position or ETA. Demo data. {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "trip_ref",
+          "type": "string",
+          "required": true,
+          "subject": true,
+          "max_length": 20,
+          "description": "Shipment reference as listed in llms.txt; short forms accepted."
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "name": "Chofex demo: customer feedback",
+      "paid": false,
+      "price": 0,
+      "method": "POST",
+      "route": "feedback",
+      "handler": "feedback",
+      "answer_type": "action",
+      "listing_description": "Free. Send feedback, a bug report or a feature request to the seller. Include a trip reference if it is about one shipment. Read by a person. {BASE}/llms.txt",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "min_length": 3,
+          "max_length": 2000,
+          "description": "What you want the seller to know."
+        },
+        {
+          "name": "from_email",
+          "type": "string",
+          "format": "email",
+          "max_length": 200,
+          "description": "Where the seller can reply."
+        },
+        {
+          "name": "subject_ref",
+          "type": "string",
+          "max_length": 40,
+          "description": "A trip reference or order the feedback is about."
+        }
+      ]
+    }
+  ]
+}

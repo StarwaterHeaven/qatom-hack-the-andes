@@ -1,0 +1,19 @@
+name = "trip-status-demo"
+main = "src/index.mjs"
+compatibility_date = "2026-09-01"
+
+[vars]
+# PUBLIC_URL = "https://your-domain.example"   # optional; defaults to the URL the Worker is called on
+FEEDBACK_PER_HOUR = "30"
+
+# Secrets (never in this file):
+#   wrangler secret put SERVICE_PATH      # long random string; the paid route answers only at /paid/<SERVICE_PATH>/...
+#   wrangler secret put RESEND_API_KEY    # optional, to email feedback
+#   wrangler secret put FEEDBACK_TO       # optional, the seller's inbox
+#   wrangler secret put FEEDBACK_FROM     # optional, a verified Resend sender
+
+# The feedback item needs a KV namespace (or the Resend secrets above):
+#   npx wrangler kv namespace create FEEDBACK   then uncomment and paste the id
+# [[kv_namespaces]]
+# binding = "FEEDBACK"
+# id = "<your KV namespace id>"
