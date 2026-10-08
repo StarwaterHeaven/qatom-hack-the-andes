@@ -20,7 +20,7 @@ Crafter Station ships agent-first tools: CLIs with JSON envelopes, MCP servers, 
 Or let an agent do steps 1 to 3 with you: install the seller guide skill and say *"turn this repo into a Qatom catalog"*.
 
 ```bash
-npx skills add StarwaterHeaven/qatom-hack-the-andes --skill qatom-seller-guide
+npx skills add StarwaterHeaven/qatom-seller-guide --skill qatom-seller-guide
 ```
 
 ## What makes a repo a good first item

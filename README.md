@@ -6,7 +6,7 @@ Everything you need to make your API, repo, data or game Qatom-capable before an
 
 | | What it is |
 |---|---|
-| [`skills/qatom-seller-guide`](skills/qatom-seller-guide/SKILL.md) | An agent skill that walks you from "I have a thing" to a live, tested catalog item: first use case, endpoint, schema, listing, `llms.txt`, launch report. Includes every Qatom use case we know of. |
+| [Qatom seller guide](https://github.com/StarwaterHeaven/qatom-seller-guide) | An agent skill that walks you from "I have a thing" to a live, tested catalog item: first use case, endpoint, schema, listing, `llms.txt`, launch report. Includes every Qatom use case we know of. It lives in its own repo, the canonical version for every Qatom seller. |
 | [`template/`](template/) | A Cloudflare Worker starter: describe your items in one `catalog.json`, put your function in `handlers.mjs`, deploy. Validation, errors, the secret paid route, the feedback item and `/llms.txt` come built in. |
 | [`examples/chofex-trip-status`](examples/chofex-trip-status/) | The sponsor demo: freight trip status for agents (synthetic data on real Mexican corridors). |
 | [`docs/repo-to-catalog.md`](docs/repo-to-catalog.md) | Turning open-source repos into catalogs, with candidates from Crafter Station. |
@@ -45,7 +45,7 @@ Then create your items in the Qatom dashboard from `out/listing.md`, and buy one
 Or have your agent do the design with you:
 
 ```bash
-npx skills add StarwaterHeaven/qatom-hack-the-andes --skill qatom-seller-guide
+npx skills add StarwaterHeaven/qatom-seller-guide --skill qatom-seller-guide
 ```
 
 and say *"Turn this repo into a Qatom catalog."*

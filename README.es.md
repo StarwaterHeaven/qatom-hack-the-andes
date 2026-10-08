@@ -35,14 +35,14 @@ Crea tus ítems en el dashboard de Qatom con `out/listing.md` y compra uno con t
 O diseña con tu agente:
 
 ```bash
-npx skills add StarwaterHeaven/qatom-hack-the-andes --skill qatom-seller-guide
+npx skills add StarwaterHeaven/qatom-seller-guide --skill qatom-seller-guide
 ```
 
 y dile *"Convierte este repo en un catálogo de Qatom."*
 
 ## Qué hay aquí
 
-- `skills/qatom-seller-guide`: skill para pasar de "tengo algo" a un ítem del catálogo probado y en vivo, con todos los casos de uso que conocemos.
+- [Guía para vendedores de Qatom](https://github.com/StarwaterHeaven/qatom-seller-guide): skill para pasar de "tengo algo" a un ítem del catálogo probado y en vivo, con todos los casos de uso que conocemos. Vive en su propio repo, la versión canónica para todos los vendedores de Qatom.
 - `template/`: plantilla de Cloudflare Worker: describe tus ítems en `catalog.json` y pon tu función en `handlers.mjs`.
 - `examples/chofex-trip-status`: la demo del sponsor: estado de viajes de carga para agentes (datos sintéticos en corredores reales de México).
 - `docs/repo-to-catalog.md`: cómo convertir repos open source en catálogos, con candidatos de Crafter Station.
