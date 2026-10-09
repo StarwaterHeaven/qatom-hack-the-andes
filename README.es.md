@@ -44,7 +44,7 @@ y dile *"Convierte este repo en un catálogo de Qatom."*
 
 - [Guía para vendedores de Qatom](https://github.com/StarwaterHeaven/qatom-seller-guide): skill para pasar de "tengo algo" a un ítem del catálogo probado y en vivo, con todos los casos de uso que conocemos. Vive en su propio repo, la versión canónica para todos los vendedores de Qatom.
 - `template/`: plantilla de Cloudflare Worker: describe tus ítems en `catalog.json` y pon tu función en `handlers.mjs`.
-- `examples/chofex-trip-status`: la demo del sponsor: estado de viajes de carga para agentes (datos sintéticos en corredores reales de México).
+- `examples/mx-freight-trip-status`: ejemplo de rastreo de carga en México para agentes: estado de viajes de carga para agentes (datos sintéticos en corredores reales de México).
 - `docs/repo-to-catalog.md`: cómo convertir repos open source en catálogos, con candidatos de Crafter Station.
 
 ## Enlaces

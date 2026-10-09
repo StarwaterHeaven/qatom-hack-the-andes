@@ -19,20 +19,20 @@ const ROUTES = {
 };
 
 export const TRIPS = {
-  'CHX-1001': { route: 'MTY-NLD', carrier: 'Transportes Demo Norte', unit: 'Tractocamión 27', cargo: 'Autopartes (exportación)', shipper: 'Demo Autopartes del Norte', mode: 'moving', loop_h: 5, speed_kmh: 72 },
-  'CHX-1002': { route: 'LEON-CDMX', carrier: 'Fletes Demo del Bajío', unit: 'Tractocamión 14', cargo: 'Calzado terminado', shipper: 'Demo Calzado León', mode: 'delayed', loop_h: 7, speed_kmh: 68 },
-  'CHX-1003': { route: 'QRO-GDL', carrier: 'Fletes Demo del Bajío', unit: 'Rabón 3', cargo: 'Electrodomésticos', shipper: 'Demo Hogar Querétaro', mode: 'moving', loop_h: 6, speed_kmh: 70 },
-  'CHX-1004': { route: 'SAL-SLP', carrier: 'Transportes Demo Norte', unit: 'Tractocamión 31', cargo: 'Acero en rollo', shipper: 'Demo Aceros Coahuila', mode: 'stopped', loop_h: 8, speed_kmh: 65 },
-  'CHX-1005': { route: 'ZLO-GDL', carrier: 'Logística Demo Pacífico', unit: 'Tractocamión 8', cargo: 'Contenedor 40 ft (importación)', shipper: 'Demo Importadora Jalisco', mode: 'delivered', loop_h: 6, speed_kmh: 60 },
+  'MXF-1001': { route: 'MTY-NLD', carrier: 'Transportes Demo Norte', unit: 'Tractocamión 27', cargo: 'Autopartes (exportación)', shipper: 'Demo Autopartes del Norte', mode: 'moving', loop_h: 5, speed_kmh: 72 },
+  'MXF-1002': { route: 'LEON-CDMX', carrier: 'Fletes Demo del Bajío', unit: 'Tractocamión 14', cargo: 'Calzado terminado', shipper: 'Demo Calzado León', mode: 'delayed', loop_h: 7, speed_kmh: 68 },
+  'MXF-1003': { route: 'QRO-GDL', carrier: 'Fletes Demo del Bajío', unit: 'Rabón 3', cargo: 'Electrodomésticos', shipper: 'Demo Hogar Querétaro', mode: 'moving', loop_h: 6, speed_kmh: 70 },
+  'MXF-1004': { route: 'SAL-SLP', carrier: 'Transportes Demo Norte', unit: 'Tractocamión 31', cargo: 'Acero en rollo', shipper: 'Demo Aceros Coahuila', mode: 'stopped', loop_h: 8, speed_kmh: 65 },
+  'MXF-1005': { route: 'ZLO-GDL', carrier: 'Logística Demo Pacífico', unit: 'Tractocamión 8', cargo: 'Contenedor 40 ft (importación)', shipper: 'Demo Importadora Jalisco', mode: 'delivered', loop_h: 6, speed_kmh: 60 },
 };
 
 export const REFS = Object.keys(TRIPS);
 
-// Accepts CHX-1001, chx1001, 1001, "chx 1001".
+// Accepts MXF-1001, mxf1001, 1001, "mxf 1001".
 export function resolveRef(input) {
   const s = String(input).toUpperCase().replace(/[\s_]/g, '');
-  const digits = s.replace(/^CHX-?/, '');
-  const ref = /^\d{4}$/.test(digits) ? `CHX-${digits}` : s;
+  const digits = s.replace(/^MXF-?/, '');
+  const ref = /^\d{4}$/.test(digits) ? `MXF-${digits}` : s;
   return TRIPS[ref] ? { ref, alias: ref !== input ? { requested: input, resolved: ref } : undefined } : null;
 }
 

@@ -56,5 +56,5 @@ Suggestions from reading each repo's public README on 7 Oct 2026. The maintainer
 A suggested format for Crafter Station before and during Hack the Andes:
 
 - **Ship or Sink: catalog edition.** Each team takes one repo from the table (or their own), and ships a live catalog item with a free check, a feedback item and a generated `llms.txt`. Done = another team's agent finds it with `catalog_search` and buys it once.
-- **Pair it with Chofex's track.** Trip status shows the shape for logistics; any team can buy from it and build on it.
+- **Pair it with the logistics track.** Trip status shows the shape for logistics; any team can buy from it and build on it.
 - **Show it off.** Add the store to `STORES.md`. Centaur League (human+agent chess on Qatom) is open for a break between builds: https://centaurleague.games
