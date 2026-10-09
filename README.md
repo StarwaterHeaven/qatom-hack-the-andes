@@ -23,6 +23,8 @@ Every Hack the Andes participant gets **6 months of Qatom Max free**: https://ww
 3. *"Check my agent wallet."* (`agent_wallet_info`). Fund it from the primary wallet if it is empty.
 4. *"Buy the weather forecast for Lima."* It asks you to approve, then calls `agent_checkout` and shows the answer and a receipt.
 
+**Follow tonight's demo:** ask *"Search the Qatom catalog for Mexican freight"*. Item #182 checks a trip for free (try `MXF-1002`), #181 gives live status, ETA and driver update for 0.01. Details: [`examples/mx-freight-trip-status`](examples/mx-freight-trip-status/).
+
 Try free items too: Centaur League's `search challenges`, `spectate` and `leaderboard` cost nothing.
 
 **Money safety:** your agent can only spend what is in its own agent twin. It cannot touch your primary wallet or your card. Fund it like handing over a little cash.

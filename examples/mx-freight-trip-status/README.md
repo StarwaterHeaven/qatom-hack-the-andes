@@ -8,6 +8,16 @@ This example shows the next step: the same answer as **one machine-readable cata
 
 > **Demo data.** Five synthetic trips on real corridors (Monterrey–Nuevo Laredo, León–CDMX, Querétaro–Guadalajara, Saltillo–San Luis Potosí, Manzanillo–Guadalajara). No real carrier, driver or load. Trucks move with the clock, so every call shows fresh positions.
 
+## Follow along: try it in 2 minutes
+
+1. Connect the Qatom MCP in your AI client: `https://mcp.m.todaq.net/mcp`
+2. Ask your agent: *"Search the Qatom catalog for Mexican freight"*. You will find items #181, #182 and #183, seller **Qatom Logistics Demo**.
+3. Free first: *"Use item 182 to check trip MXF-1002"*.
+4. Then paid (0.01 USD-TDN from your agent wallet): *"Use item 181 for the status of MXF-1002, in English"*. Ask again a few minutes later: the ETA moves.
+5. Something wrong: *"And MXF-1004?"* Stopped truck, stale GPS, no ETA, next steps.
+
+Read-me for agents: https://trip-status-demo.hassan-khan-cd6.workers.dev/llms.txt
+
 ## The items
 
 | Item | Price | What it does |

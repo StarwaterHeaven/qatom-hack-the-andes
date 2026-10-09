@@ -15,6 +15,8 @@ Cada participante recibe **6 meses de Qatom Max gratis**: https://www.qatom.ai/h
 3. *"Revisa mi wallet de agente."* (`agent_wallet_info`). Si está vacía, fóndeala desde la wallet principal.
 4. *"Compra el pronóstico del clima para Lima."* Te pide aprobación, llama a `agent_checkout` y te muestra la respuesta con su recibo.
 
+**Sigue la demo:** pídele *"Busca Mexican freight en el catálogo de Qatom"*. El ítem #182 revisa un viaje gratis (prueba `MXF-1002`) y el #181 da posición, ETA y el último mensaje del chofer por 0.01. Detalles: [`examples/mx-freight-trip-status`](examples/mx-freight-trip-status/).
+
 **Seguridad:** tu agente solo puede gastar lo que hay en su propio twin de agente. No tiene acceso a tu wallet principal ni a tu tarjeta.
 
 ## 3. Vende en treinta minutos
