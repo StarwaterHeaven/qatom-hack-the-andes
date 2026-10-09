@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qatom V4 paid stream demo</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0b0d12; color: #e8eaf0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0 0 4px; }
+  p.sub { margin: 0 0 16px; color: #9aa3b2; }
+  video { width: 100%; max-height: 70vh; background: #000; border-radius: 10px; display: block; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+  .pill { background: #161a24; border: 1px solid #262c3a; border-radius: 999px; padding: 4px 12px; font-size: 13px; color: #b8c0cf; }
+  .pill b { color: #e8eaf0; font-weight: 600; }
+  .err { margin-top: 14px; padding: 12px 14px; background: #2a1518; border: 1px solid #5a2a30; border-radius: 8px; color: #ffb4bd; display: none; white-space: pre-wrap; }
+  .hint { margin-top: 18px; color: #7f8899; font-size: 13px; }
+  code { background: #161a24; padding: 1px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Qatom V4 paid stream demo</h1>
+  <p class="sub">This page plays the signed HLS stream key returned by a Qatom catalog-item purchase. The key is time-limited; after it expires the playlist answers 403.</p>
+  <video id="v" controls playsinline poster="/poster.jpg"></video>
+  <div class="row">
+    <span class="pill">status: <b id="st">loading</b></span>
+    <span class="pill">rendition: <b id="lv">-</b></span>
+    <span class="pill">key expires: <b id="ex">-</b></span>
+  </div>
+  <div class="err" id="err"></div>
+  <p class="hint">Open as <code>/play?src=&lt;hls_url&gt;</code> where <code>hls_url</code> is the value returned by the purchase.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var src = q.get("src");
+  var video = document.getElementById("v");
+  var st = document.getElementById("st");
+  var lv = document.getElementById("lv");
+  var ex = document.getElementById("ex");
+  var err = document.getElementById("err");
+  function fail(msg) { st.textContent = "error"; err.style.display = "block"; err.textContent = msg; }
+  if (!src) { fail("No src parameter. Use /play?src=<hls_url>."); return; }
+  try {
+    var m = /\/hls\/(\d+)\./.exec(src);
+    if (m) ex.textContent = new Date(Number(m[1]) * 1000).toLocaleString();
+  } catch (e) {}
+  fetch(src, { method: "GET" }).then(function (r) {
+    if (r.status === 403) { return r.json().then(function (j) { fail("Stream key rejected: " + (j.reason || "forbidden") + (j.expired_at ? " (expired " + j.expired_at + ")" : "")); throw new Error("403"); }); }
+    if (!r.ok) { fail("Playlist returned HTTP " + r.status); throw new Error("http"); }
+    start();
+  }).catch(function () {});
+  function start() {
+    if (window.Hls && Hls.isSupported()) {
+      var hls = new Hls({ enableWorker: true });
+      hls.on(Hls.Events.LEVEL_SWITCHED, function (_, d) { var l = hls.levels[d.level]; if (l) lv.textContent = l.height + "p"; });
+      hls.on(Hls.Events.MANIFEST_PARSED, function () { st.textContent = "playing"; video.play().catch(function () { st.textContent = "ready (press play)"; }); });
+      hls.on(Hls.Events.ERROR, function (_, d) { if (d.fatal) fail("Playback error: " + d.type + " / " + d.details); });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = src;
+      video.addEventListener("loadedmetadata", function () { st.textContent = "playing (native HLS)"; video.play().catch(function () { st.textContent = "ready (press play)"; }); });
+      video.addEventListener("error", function () { fail("Native playback error"); });
+    } else {
+      fail("This browser cannot play HLS.");
+    }
+  }
+})();
+</script>
+</body>
+</html>

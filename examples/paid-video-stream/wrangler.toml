@@ -1,0 +1,12 @@
+name = "qatom-demo-stream"
+main = "src/index.mjs"
+compatibility_date = "2026-09-01"
+
+# SERVICE_PATH and SIGNING_KEY are SECRETS (wrangler secret put ...).
+# Never add them here as [vars] entries.
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+not_found_handling = "none"

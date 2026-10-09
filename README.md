@@ -9,6 +9,7 @@ Everything you need to make your API, repo, data or game Qatom-capable before an
 | [Qatom seller guide](https://github.com/StarwaterHeaven/qatom-seller-guide) | An agent skill that walks you from "I have a thing" to a live, tested catalog item: first use case, endpoint, schema, listing, `llms.txt`, launch report. Includes every Qatom use case we know of. It lives in its own repo, the canonical version for every Qatom seller. |
 | [`template/`](template/) | A Cloudflare Worker starter: describe your items in one `catalog.json`, put your function in `handlers.mjs`, deploy. Validation, errors, the secret paid route, the feedback item and `/llms.txt` come built in. |
 | [`examples/mx-freight-trip-status`](examples/mx-freight-trip-status/) | Mexican Freight Agentic Tracking and Tracing example: freight trip status for agents (synthetic data on real Mexican corridors). |
+| [`examples/paid-video-stream`](examples/paid-video-stream/) | Paid video stream example: each purchase returns its own signed, time-limited HLS stream (NASA ISS footage, public domain). Live as catalog item #27. |
 | [`docs/repo-to-catalog.md`](docs/repo-to-catalog.md) | Turning open-source repos into catalogs, with candidates from Crafter Station. |
 | [`STORES.md`](STORES.md) | Live stores. Add yours. |
 
@@ -23,7 +24,7 @@ Every Hack the Andes participant gets **6 months of Qatom Max free**: https://ww
 3. *"Check my agent wallet."* (`agent_wallet_info`). Fund it from the primary wallet if it is empty.
 4. *"Buy the weather forecast for Lima."* It asks you to approve, then calls `agent_checkout` and shows the answer and a receipt.
 
-**Follow tonight's demo:** ask *"Search the Qatom catalog for Mexican freight"*. Item #182 checks a trip for free (try `MXF-1002`), #181 gives live status, ETA and driver update for 0.01. Details: [`examples/mx-freight-trip-status`](examples/mx-freight-trip-status/).
+**Follow tonight's demo:** ask *"Search the Qatom catalog for Mexican freight"*. Item #182 checks a trip for free (try `MXF-1002`), #181 gives live status, ETA and driver update for 0.01. Details: [`examples/mx-freight-trip-status`](examples/mx-freight-trip-status/). For media, try *"Search the Qatom catalog for ISS"*: item #27 sells a signed, time-limited video stream for 0.10 ([`examples/paid-video-stream`](examples/paid-video-stream/)).
 
 Try free items too: Centaur League's `search challenges`, `spectate` and `leaderboard` cost nothing.
 

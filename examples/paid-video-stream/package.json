@@ -1,0 +1,9 @@
+{
+  "name": "qatom-demo-stream",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Qatom V4 demo catalog item: signed, time-limited HLS stream delivery",
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
