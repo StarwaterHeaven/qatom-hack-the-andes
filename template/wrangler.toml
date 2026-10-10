@@ -8,6 +8,8 @@ FEEDBACK_PER_HOUR = "30"
 
 # Secrets (never in this file):
 #   wrangler secret put SERVICE_PATH      # required: long random string guarding the paid route
+#   wrangler secret put QATOM_FULFILMENT_TOKEN   # recommended: paid route also requires Authorization: Bearer <token>,
+#                                                # set (Sensitive) on each paid item's Request headers & secret parameters
 #   wrangler secret put GITHUB_TOKEN      # recommended: a fine-grained token with no scopes; without it GitHub rate-limits Workers quickly
 #   wrangler secret put RESEND_API_KEY    # optional, to email feedback
 #   wrangler secret put FEEDBACK_TO       # optional

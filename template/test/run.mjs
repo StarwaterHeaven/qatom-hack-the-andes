@@ -27,4 +27,22 @@ console.log('ok 3 - unknown input refused');
 r = await call('/api/repo-card', { repo: 'crafter-station/trx' });
 assert.equal(r.status, 404);
 console.log('ok 4 - paid item not reachable on the free path');
-console.log('\n4 passed');
+// Qatom's fulfilment header: with QATOM_FULFILMENT_TOKEN set, the paid route needs Authorization: Bearer <token>.
+const envH = { ...env, QATOM_FULFILMENT_TOKEN: 'tok' };
+const callH = async (path, body, headers = {}) => {
+  const r = await worker.fetch(new Request(`https://store.test${path}`, { method: 'POST', headers, body: JSON.stringify(body) }), envH, {});
+  return { status: r.status, body: await r.json() };
+};
+r = await callH('/paid/s3cret/repo-card', { repo: 'crafter-station/trx' });
+assert.equal(r.status, 404);
+console.log('ok 5 - paid route without the fulfilment header is 404');
+r = await callH('/paid/s3cret/repo-card', { repo: 'crafter-station/trx' }, { authorization: 'Bearer wrong' });
+assert.equal(r.status, 404);
+console.log('ok 6 - wrong fulfilment header is 404');
+r = await callH('/paid/s3cret/repo-card', { repo: 'crafter-station/trx' }, { authorization: 'Bearer tok' });
+assert.equal(r.status, 200);
+console.log('ok 7 - right fulfilment header answers');
+r = await worker.fetch(new Request('https://store.test/paid/s3cret/repo-card', { method: 'POST', headers: { authorization: 'Bearer old' }, body: JSON.stringify({ repo: 'crafter-station/trx' }) }), { ...envH, QATOM_FULFILMENT_TOKEN_PREVIOUS: 'old' }, {});
+assert.equal(r.status, 200);
+console.log('ok 8 - previous token accepted during rotation');
+console.log('\n8 passed');

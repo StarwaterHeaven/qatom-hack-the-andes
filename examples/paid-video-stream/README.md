@@ -42,6 +42,7 @@ bash build-hls.sh                       # downloads the NASA source and builds p
 npx wrangler login
 npx wrangler secret put SERVICE_PATH    # 32+ random characters: the paid route answers only at /v/<SERVICE_PATH>
 npx wrangler secret put SIGNING_KEY     # 32+ random characters: signs the stream keys
+npx wrangler secret put QATOM_FULFILMENT_TOKEN   # recommended: the target then also needs Qatom's Authorization header
 npx wrangler deploy
 ```
 
@@ -51,6 +52,7 @@ Then create the catalog item in the Qatom dashboard:
 |---|---|
 | Method | GET (POST and PUT also work, body `{"ttl_seconds": N}`) |
 | Endpoint | `https://<your-worker>/v/<SERVICE_PATH>` (keep it secret; never in the description) |
+| Request headers & secret parameters | header `Authorization`, Sensitive, value `Bearer <QATOM_FULFILMENT_TOKEN>`; then *Save headers & parameters* |
 | Price | your call; the live example is 0.10 |
 | Description | say what the buyer receives: a signed HLS stream, player link, poster and expiry; the source and its licence |
 

@@ -39,11 +39,14 @@ node test/run.mjs                         # offline checks (Node 20+)
 npx wrangler login
 npx wrangler kv namespace create FEEDBACK # paste the id into wrangler.toml (the feedback item needs it)
 npx wrangler secret put SERVICE_PATH      # 32+ random characters
+npx wrangler secret put QATOM_FULFILMENT_TOKEN   # e.g. openssl rand -hex 24
 npx wrangler deploy                       # note the URL it prints
 node ../lib/gen.mjs catalog.json --base https://<your-worker-url>   # listing fields and llms.txt in out/
 ```
 
-Then create your items in the Qatom dashboard from `out/listing.md`, and buy one with your own agent.
+Then create your items in the Qatom dashboard from `out/listing.md`. On each **paid** item, open *Request headers & secret parameters*, add a **Sensitive** header `Authorization` with the value `Bearer <your QATOM_FULFILMENT_TOKEN>`, and click *Save headers & parameters*. Your Worker now refuses any paid call that did not come from Qatom. Then buy one with your own agent.
+
+What to build next, and how other sellers set up each use case: https://github.com/StarwaterHeaven/qatom-use-cases
 
 Or have your agent do the design with you:
 

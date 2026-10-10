@@ -45,6 +45,7 @@ node test/run.mjs                      # 15 offline checks (Node 20+)
 npx wrangler login
 npx wrangler kv namespace create FEEDBACK   # paste the id into wrangler.toml
 npx wrangler secret put SERVICE_PATH   # 32+ random characters
+npx wrangler secret put QATOM_FULFILMENT_TOKEN   # then set Authorization: Bearer <token> (Sensitive) on item #181's Request headers & secret parameters
 npx wrangler deploy                    # note the URL it prints
 node ../../lib/gen.mjs catalog.json --base https://<your-worker-url>   # listing fields + llms.txt in out/
 ```

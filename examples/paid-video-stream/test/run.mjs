@@ -34,4 +34,10 @@ await t('key for another expiry is refused', async () => {
   assert.equal((await call(`/hls/1000000000.${sig}/master.m3u8`)).status, 403);
 });
 await t('player and poster are public', async () => { assert.equal((await call('/play?src=x')).status, 200); assert.equal((await call('/poster.jpg')).status, 200); });
+await t('with QATOM_FULFILMENT_TOKEN, the target needs the Authorization header', async () => {
+  const e = { ...env, QATOM_FULFILMENT_TOKEN: 'tok' };
+  assert.equal((await call('/v/test-secret', {}, e)).status, 404);
+  assert.equal((await call('/v/test-secret', { headers: { authorization: 'Bearer nope' } }, e)).status, 404);
+  assert.equal((await call('/v/test-secret', { headers: { authorization: 'Bearer tok' } }, e)).status, 200);
+});
 console.log(`\n${n} passed`);

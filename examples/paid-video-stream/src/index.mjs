@@ -11,7 +11,7 @@
 //   GET      /poster.jpg                poster frame for the catalog listing (public)
 //   *                                   404
 //
-// Secrets (wrangler secret put): SERVICE_PATH, SIGNING_KEY
+// Secrets (wrangler secret put): SERVICE_PATH, SIGNING_KEY, and (recommended) QATOM_FULFILMENT_TOKEN
 // Static assets: ./public  (binding ASSETS, run_worker_first = true so the gate runs first)
 
 const VERSION = "1.0.0";
@@ -96,6 +96,23 @@ async function readParams(request, url) {
   return p;
 }
 
+function sameSecret(a, b) {
+  const x = new TextEncoder().encode(String(a));
+  const y = new TextEncoder().encode(String(b));
+  let diff = x.length ^ y.length;
+  for (let i = 0; i < Math.max(x.length, y.length); i++) diff |= (x[i] ?? 0) ^ (y[i] ?? 0);
+  return diff === 0;
+}
+
+function fulfilmentHeaderOk(request, env) {
+  const tokens = [env.QATOM_FULFILMENT_TOKEN, env.QATOM_FULFILMENT_TOKEN_PREVIOUS].filter(Boolean);
+  if (!tokens.length) return true;
+  const got = request.headers.get("authorization") || "";
+  let ok = false;
+  for (const t of tokens) ok = sameSecret(got, `Bearer ${t}`) || ok;
+  return ok;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -121,6 +138,9 @@ export default {
 
     // 1. the catalog item's target URL ------------------------------------
     if (path === `/v/${env.SERVICE_PATH}`) {
+      // Qatom's fulfilment header (seller guide 1.2): when QATOM_FULFILMENT_TOKEN is set, the paid route
+      // also needs `Authorization: Bearer <token>`, set on the catalog item under Request headers & secret parameters.
+      if (!fulfilmentHeaderOk(request, env)) return json({ error: "not_found" }, 404);
       if (!["GET", "POST", "PUT"].includes(request.method)) {
         return json({ error: "method_not_allowed" }, 405, { allow: "GET, POST, PUT" });
       }
