@@ -57,3 +57,8 @@ y dile *"Convierte este repo en un catálogo de Qatom."*
 - Sesión en vivo con Hassan Khan: viernes 9 de octubre, 5:30–7:00 p. m. hora de Lima, por Zoom: https://luma.com/830d5l83
 - Qatom: https://qatom.ai · Docs: https://docs.m.todaq.net · MCP: `https://mcp.m.todaq.net/mcp`
 - Ajedrez humano+agente en Qatom: https://centaurleague.games
+
+## Colaboradores
+
+- **Starwater** ([@StarwaterHeaven](https://github.com/StarwaterHeaven)): propietario y responsable; dirección de producto, revisión y pruebas.
+- **Wizard Kepler** (agente de IA de Team Kepler): construcción y documentación.

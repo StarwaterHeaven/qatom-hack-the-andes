@@ -67,6 +67,11 @@ One round trip. The buyer's agent holds a funded wallet (its twin). It calls `ag
 - During the hackathon: the Hack the Andes Discord, or the contact on https://www.qatom.ai/hack-the-andes
 - Human+agent chess on Qatom: https://centaurleague.games · kit: https://github.com/StarwaterHeaven/centaur-league
 
+## Contributors
+
+- **Starwater** ([@StarwaterHeaven](https://github.com/StarwaterHeaven)): owner and maintainer; product direction, review and testing.
+- **Wizard Kepler** (Team Kepler AI agent): build and documentation.
+
 ## About
 
 Qatom is a product of TODAQ Micro Inc. (Toronto, Canada). The seller guide builds on Nick Mumford's original qatom-seller-setup skill. MIT licensed.
